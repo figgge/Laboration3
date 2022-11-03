@@ -10,7 +10,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class PaintModel {
-    private final ObservableList<Shape2> shapes = FXCollections.observableArrayList();
+    private final ObservableList<Shape> shapes = FXCollections.observableArrayList();
     private final ObjectProperty<Color> color = new SimpleObjectProperty<>(Color.BLACK);
     private final ObservableList<ShapeSelected> shapeChoiceBox = FXCollections.observableArrayList(ShapeSelected.values());
     private final ObjectProperty<ShapeSelected> shapeSelected = new SimpleObjectProperty<>(ShapeSelected.CIRCLE);
@@ -41,20 +41,20 @@ public class PaintModel {
         return sizeSpinner;
     }
 
-    public ObservableList<Shape2> getShapes() {
+    public ObservableList<Shape> getShapes() {
         return shapes;
     }
 
-    public Shape2 createShape(Position position) {
+    public Shape createShape(Position position) {
         return switch (shapeSelected.getValue()) {
-            case CIRCLE -> new Circle2(ShapeSelected.CIRCLE, position, colorProperty().getValue(), getSizeSpinner());
-            case SQUARE -> new Square2(ShapeSelected.SQUARE, position, colorProperty().getValue(), getSizeSpinner());
+            case CIRCLE -> new Circle(ShapeSelected.CIRCLE, position, colorProperty().getValue(), getSizeSpinner());
+            case SQUARE -> new Square(ShapeSelected.SQUARE, position, colorProperty().getValue(), getSizeSpinner());
         };
     }
 
 
     public void drawShapes(GraphicsContext context) {
-        for (Shape2 shape : shapes) {
+        for (Shape shape : shapes) {
             shape.drawShape(context);
         }
     }

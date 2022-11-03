@@ -6,15 +6,24 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Circle extends Shape {
-
     public Circle(ShapeSelected shape, Position pos, Color col, double sizeValue) {
         super(shape, pos, col, sizeValue);
     }
 
     @Override
     public void drawShape(GraphicsContext context) {
-        context.setFill(color.get());
-        context.fillOval(position.get().x() - (size.doubleValue()/ 2), position.get().y() - (size.doubleValue() / 2),
-                size.doubleValue(), size.doubleValue());
+        context.setFill(color);
+        context.fillOval(position.x() - halfSize(), position.y() - halfSize(),
+                size, size);
     }
+
+    @Override
+    public boolean isSelectable(Position position) {
+        double xRange = position.x() - this.position.x();
+        double yRange = position.y() - this.position.y();
+        double circleRange = Math.sqrt((xRange * xRange) + (yRange * yRange));
+        return circleRange <= halfSize();
+    }
+
 }
+

@@ -1,7 +1,7 @@
 package com.example.laboration3.controller;
 
 import com.example.laboration3.model.PaintModel;
-import com.example.laboration3.model.Shape2;
+import com.example.laboration3.model.Shape;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -39,7 +39,7 @@ public class PaintController {
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeSpinnerProperty());
         context.clearRect(0,0,800,600);
-        model.getShapes().addListener((ListChangeListener<? super Shape2>) change -> model.drawShapes(context));
+        model.getShapes().addListener((ListChangeListener<? super Shape>) change -> model.drawShapes(context));
 
 
 
@@ -48,7 +48,7 @@ public class PaintController {
 
     public void onCanvasClicked(MouseEvent mouseEvent) {
         Position position = new Position(mouseEvent.getX(), mouseEvent.getY());
-        Shape2 shape = model.createShape(position);
+        Shape shape = model.createShape(position);
 
         if (selectShapeCheckBox.isSelected()) {
             for (int i = 0; i < model.getShapes().size(); i++) {
