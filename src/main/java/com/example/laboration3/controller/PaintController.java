@@ -2,6 +2,7 @@ package com.example.laboration3.controller;
 
 import com.example.laboration3.model.PaintModel;
 import com.example.laboration3.model.Shape2;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ListChangeListener;
@@ -60,5 +61,9 @@ public class PaintController {
 
     public boolean isSelectMode(ActionEvent actionEvent) {
         return actionEvent.isConsumed();
+    }
+
+    public void closeApplication() {
+        Platform.exit();
     }
 }
