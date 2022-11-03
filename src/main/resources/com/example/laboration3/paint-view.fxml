@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboration3.controller.PaintController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboration3.controller.PaintController">
    <top>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -30,11 +30,12 @@
             </MenuBar>
             <ChoiceBox fx:id="shapeChoiceBox" prefWidth="110.0" />
             <ColorPicker fx:id="colorPicker" />
-            <Spinner fx:id="sizeSpinner" maxWidth="60" initialValue="10" min="10" max="400" editable="true" />
+            <Spinner fx:id="sizeSpinner" editable="true" initialValue="10" max="400" maxWidth="60" min="10" />
+            <CheckBox fx:id="selectShapeCheckBox" mnemonicParsing="false" onAction="#isSelectMode" text="Select shape" />
          </children>
       </HBox>
    </top>
    <center>
-      <Canvas fx:id="canvas" height="600.0" width="800.0" BorderPane.alignment="CENTER" onMouseClicked="#onCanvasClicked" />
+      <Canvas fx:id="canvas" height="600.0" onMouseClicked="#onCanvasClicked" width="800.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

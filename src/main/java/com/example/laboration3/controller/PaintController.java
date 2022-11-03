@@ -4,21 +4,18 @@ import com.example.laboration3.model.PaintModel;
 import com.example.laboration3.model.Shape2;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Spinner;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 public class PaintController {
     private final PaintModel model = new PaintModel();
     private final DoubleProperty size = new SimpleDoubleProperty();
+    public CheckBox selectShapeCheckBox;
     @FXML
     private MenuItem saveAsClicked;
     @FXML
@@ -52,6 +49,8 @@ public class PaintController {
         Position position = new Position(mouseEvent.getX(), mouseEvent.getY());
         Shape2 shape = model.createShape(position);
         model.getShapes().add(shape);
+        if (selectShapeCheckBox.isSelected())
+            System.out.println("isSelected");
 
 
 
@@ -59,4 +58,7 @@ public class PaintController {
 
     }
 
+    public boolean isSelectMode(ActionEvent actionEvent) {
+        return actionEvent.isConsumed();
+    }
 }
