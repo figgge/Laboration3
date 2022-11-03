@@ -49,11 +49,15 @@ public class PaintController {
     public void onCanvasClicked(MouseEvent mouseEvent) {
         Position position = new Position(mouseEvent.getX(), mouseEvent.getY());
         Shape2 shape = model.createShape(position);
-        model.getShapes().add(shape);
-        if (selectShapeCheckBox.isSelected())
-            System.out.println("isSelected");
 
+        if (selectShapeCheckBox.isSelected()) {
+            for (int i = 0; i < model.getShapes().size(); i++) {
+                if (model.getShapes().get(i).isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY())))
+                    System.out.println("Is selectable");
 
+            }
+        } else
+            model.getShapes().add(shape);
 
 
 

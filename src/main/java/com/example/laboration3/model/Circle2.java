@@ -13,8 +13,17 @@ public class Circle2 extends Shape2{
     @Override
     public void drawShape(GraphicsContext context) {
         context.setFill(color);
-        context.fillOval(position.x() - (size/ 2), position.y() - (size / 2),
+        context.fillOval(position.x() - halfSize(), position.y() - halfSize(),
                 size, size);
     }
 
+    @Override
+    public boolean isSelectable(Position position) {
+        double xRange = position.x() - this.position.x();
+        double yRange = position.y() - this.position.y();
+        double circleRange = Math.sqrt((xRange * xRange) + (yRange * yRange));
+        return circleRange <= halfSize();
+    }
+
 }
+

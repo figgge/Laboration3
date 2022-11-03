@@ -14,8 +14,16 @@ public class Square2 extends Shape2{
     @Override
     public void drawShape(GraphicsContext context) {
         context.setFill(color);
-        context.fillRect(position.x() - (size/ 2), position.y() - (size / 2),
+        context.fillRect(position.x() - halfSize(), position.y() - halfSize(),
                 size, size);
+    }
+
+
+    @Override
+    public boolean isSelectable(Position position) {
+        boolean xSelectable = position.x() >= this.position.x() - halfSize() && position.x() <= this.position.x() - halfSize() + size;
+        boolean ySelectable = position.y() >= this.position.y() - halfSize() && position.y() <= this.position.y() - halfSize() + size;
+        return xSelectable && ySelectable;
     }
 
 }
