@@ -21,45 +21,6 @@ public abstract class Shape2 {
     }
 
 
-    //    public Shape2(ShapeSelected shapeSelected, Position position, Color color, double size) {
-//        this.shapeSelected = shapeSelected;
-//        this.position = position;
-//        this.color = color;
-//        this.size = size;
-//    }
-
-    public ShapeSelected getShapeSelected() {
-        return shapeSelected;
-    }
-
-    public void setShapeSelected(ShapeSelected shapeSelected) {
-        this.shapeSelected = shapeSelected;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public double getSize() {
-        return size;
-    }
-
-    public void setSize(double size) {
-        this.size = size;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -84,4 +45,9 @@ public abstract class Shape2 {
     }
 
     public abstract void drawShape(GraphicsContext context);
+    public abstract boolean isSelectable(Position position);
+
+    double halfSize() {
+        return size / 2;
+    }
 }
