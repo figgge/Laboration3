@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.laboration3.controller.PaintController">
+   <top>
+      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar>
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                    <MenuItem fx:id="saveAsClicked" mnemonicParsing="false" text="Save as.." />
+                        <MenuItem fx:id="menuClose" mnemonicParsing="false" text="Close application" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="Delete" />
+                  </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <ChoiceBox fx:id="shapeChoiceBox" prefWidth="110.0" />
+            <ColorPicker fx:id="colorPicker" />
+            <Spinner fx:id="sizeSpinner" maxWidth="60" initialValue="10" min="10" max="400" editable="true" />
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <Canvas fx:id="canvas" height="600.0" width="800.0" BorderPane.alignment="CENTER" onMouseClicked="#onCanvasClicked" />
+   </center>
+</BorderPane>
