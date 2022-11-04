@@ -13,15 +13,13 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 public class PaintController {
     private final PaintModel model = new PaintModel();
     private final DoubleProperty size = new SimpleDoubleProperty();
     public CheckBox selectShapeCheckBox;
     public Button undoButton;
     public Button redoButton;
+    public Button changeSelectedButton;
     @FXML
     private MenuItem saveAsClicked;
     @FXML
@@ -36,7 +34,6 @@ public class PaintController {
     private ColorPicker colorPicker;
     @FXML
     private Spinner<Integer> sizeSpinner;
-    private static final Deque<Runnable> undoStack = new ArrayDeque<>();
 
     public void initialize() {
         context = canvas.getGraphicsContext2D();
@@ -55,11 +52,12 @@ public class PaintController {
         Position position = new Position(mouseEvent.getX(), mouseEvent.getY());
         Shape shape = model.createShape(position);
 
-
         if (selectShapeCheckBox.isSelected()) {// STREAMS?
+
             for (int i = 0; i < model.getShapes().size(); i++) {
                 if (model.getShapes().get(i).isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY()))) {
                     model.getShapes().get(i).setSelected(true);
+
                 }
             }
         } else {
@@ -84,4 +82,9 @@ public class PaintController {
     public void onRedoClicked() {
         model.redo();
     }
+
+    public void changeSelected() {
+        model.changeSelectedShapes();
+    }
+
 }

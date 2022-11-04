@@ -31,7 +31,12 @@
             <ChoiceBox fx:id="shapeChoiceBox" prefWidth="110.0" />
             <ColorPicker fx:id="colorPicker" />
             <Spinner fx:id="sizeSpinner" editable="true" initialValue="10" max="400" maxWidth="60" min="10" />
-            <CheckBox fx:id="selectShapeCheckBox" mnemonicParsing="false" onAction="#isSelectMode" text="Select shape" />
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <CheckBox fx:id="selectShapeCheckBox" mnemonicParsing="false" onAction="#isSelectMode" text="Select shape" />
+                  <Button fx:id="changeSelectedButton" maxHeight="5" mnemonicParsing="false" onAction="#changeSelected" text="Edit selected" />
+               </children>
+            </VBox>
             <Button fx:id="undoButton" mnemonicParsing="false" onAction="#onUndoClicked" text="Undo" />
             <Button fx:id="redoButton" mnemonicParsing="false" onAction="#onRedoClicked" text="Redo" />
          </children>

@@ -1,8 +1,10 @@
 package com.example.laboration3.model;
 
 
+import com.example.laboration3.controller.PaintController;
 import com.example.laboration3.controller.Position;
 import com.example.laboration3.controller.ShapeSelected;
+import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +15,9 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class PaintModel {
-    private final ObservableList<Shape> shapes = FXCollections.observableArrayList();
+    private final ObservableList<Shape> shapes = FXCollections.observableArrayList(param -> new Observable[]{
+            param.colorObjectProperty
+    });
     private final ObjectProperty<Color> color = new SimpleObjectProperty<>(Color.BLACK);
     private final ObservableList<ShapeSelected> shapeChoiceBox = FXCollections.observableArrayList(ShapeSelected.values());
     private final ObjectProperty<ShapeSelected> shapeSelected = new SimpleObjectProperty<>(ShapeSelected.CIRCLE);
@@ -52,8 +56,8 @@ public class PaintModel {
 
     public Shape createShape(Position position) {
         return switch (shapeSelected.getValue()) {
-            case CIRCLE -> new Circle(ShapeSelected.CIRCLE, position, colorProperty().getValue(), getSizeSpinner());
-            case SQUARE -> new Square(ShapeSelected.SQUARE, position, colorProperty().getValue(), getSizeSpinner());
+            case CIRCLE -> new Circle(ShapeSelected.CIRCLE, position, colorProperty(), getSizeSpinner());
+            case SQUARE -> new Square(ShapeSelected.SQUARE, position, colorProperty(), getSizeSpinner());
         };
     }
 
@@ -87,6 +91,16 @@ public class PaintModel {
         if (redoStack.size() > 0) {
             Runnable redo = redoStack.pop();
             redo.run();
+        }
+    }
+
+    public void changeSelectedShapes() {
+        for (int i = 0; i < getShapes().size(); i++) {
+            if (getShapes().get(i).isSelected) {
+                getShapes().get(i).setColorObjectProperty(colorProperty().getValue());
+                getShapes().get(i).setSize(getSizeSpinner());
+                getShapes().get(i).setSelected(false);
+            }
         }
     }
 }

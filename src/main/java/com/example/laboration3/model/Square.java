@@ -2,18 +2,19 @@ package com.example.laboration3.model;
 
 import com.example.laboration3.controller.Position;
 import com.example.laboration3.controller.ShapeSelected;
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Square extends Shape {
 
-    public Square(ShapeSelected shape, Position pos, Color col, double sizeValue) {
+    public Square(ShapeSelected shape, Position pos, ObjectProperty<Color> col, double sizeValue) {
         super(shape, pos, col, sizeValue);
     }
 
     @Override
     public void drawShape(GraphicsContext context) {
-        context.setFill(color);
+        context.setFill(getColorObjectProperty());
         context.fillRect(position.x() - halfSize(), position.y() - halfSize(),
                 size, size);
     }
@@ -25,5 +26,6 @@ public class Square extends Shape {
         boolean ySelectable = position.y() >= this.position.y() - halfSize() && position.y() <= this.position.y() - halfSize() + size;
         return xSelectable && ySelectable;
     }
+
 
 }
