@@ -14,6 +14,8 @@ public class Circle extends Shape {
     @Override
     public void drawShape(GraphicsContext context) {
         context.setFill(getColorObjectProperty());
+        context.setStroke(borderColor.getValue());
+        context.strokeOval(position.x() - halfSize(), position.y() - halfSize(), getSizeProperty(), getSizeProperty());
         context.fillOval(position.x() - halfSize(), position.y() - halfSize(),
                 getSizeProperty(), getSizeProperty());
     }

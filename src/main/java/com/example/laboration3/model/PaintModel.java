@@ -16,7 +16,7 @@ import java.util.Deque;
 
 public class PaintModel {
     private final ObservableList<Shape> shapes = FXCollections.observableArrayList(param -> new Observable[]{
-            param.colorObjectProperty, param.sizeProperty
+            param.colorObjectProperty, param.sizeProperty, param.borderColor
     });
     private final ObjectProperty<Color> color = new SimpleObjectProperty<>(Color.BLACK);
     private final ObservableList<ShapeSelected> shapeChoiceBox = FXCollections.observableArrayList(ShapeSelected.values());
@@ -100,6 +100,7 @@ public class PaintModel {
                 getShapes().get(i).setColorObjectProperty(colorProperty().getValue());
                 getShapes().get(i).setSizeProperty(getSizeSpinner().doubleValue());
                 getShapes().get(i).setSelected(false);
+                getShapes().get(i).setBorderColor(getShapes().get(i).colorObjectProperty.getValue());
             }
         }
     }

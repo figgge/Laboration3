@@ -14,17 +14,17 @@ public abstract class Shape {
     public ShapeSelected shapeSelected;
     public Position position;
     public ObjectProperty<Color> colorObjectProperty = new SimpleObjectProperty<>();
-    public Color borderColor;
-//    public double size;
+    public ObjectProperty<Color> borderColor = new SimpleObjectProperty<>();
+//    public Color borderColor;
     public ObjectProperty<Double> sizeProperty = new SimpleObjectProperty<>();
     public boolean isSelected;
 
     public Shape(ShapeSelected shapeSelected, Position position, ObjectProperty<Color> color, Double size) {
         this.shapeSelected = shapeSelected;
         this.position = position;
-        this.borderColor = color.getValue();
         this.sizeProperty.setValue(size);
         this.colorObjectProperty.setValue(color.getValue());
+        this.borderColor.setValue(color.getValue());
     }
 
 
@@ -60,29 +60,10 @@ public abstract class Shape {
         return sizeProperty.getValue() / 2;
     }
 
-    public ShapeSelected getShapeSelected() {
-        return shapeSelected;
-    }
-
-    public void setShapeSelected(ShapeSelected shapeSelected) {
-        this.shapeSelected = shapeSelected;
-    }
-
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
     public Color getColorObjectProperty() {
         return colorObjectProperty.get();
     }
 
-    public ObjectProperty<Color> colorObjectPropertyProperty() {
-        return colorObjectProperty;
-    }
 
     public void setColorObjectProperty(Color colorObjectProperty) {
         this.colorObjectProperty.set(colorObjectProperty);
@@ -92,19 +73,25 @@ public abstract class Shape {
         return sizeProperty.get();
     }
 
-    public ObjectProperty<Double> sizePropertyProperty() {
-        return sizeProperty;
-    }
 
     public void setSizeProperty(Double sizeProperty) {
         this.sizeProperty.set(sizeProperty);
     }
 
-    public boolean isSelected() {
-        return isSelected;
+    public void setSelected(boolean selected) {
+        if (selected)
+            setBorderColor();
+        else
+            setBorderColor(colorObjectProperty.getValue());
+        isSelected = selected;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setBorderColor() {
+        if (borderColor.getValue().equals(Color.BLACK))
+            this.borderColor.set(Color.PINK);
+        this.borderColor.set(Color.BLACK);
+    }
+    public void setBorderColor(Color color) {
+        this.borderColor.set(color);
     }
 }

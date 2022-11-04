@@ -17,13 +17,10 @@ public class PaintController {
     private final PaintModel model = new PaintModel();
     private final DoubleProperty size = new SimpleDoubleProperty();
     public CheckBox selectShapeCheckBox;
-    public Button undoButton;
-    public Button redoButton;
-    public Button changeSelectedButton;
     @FXML
-    private MenuItem saveAsClicked;
+    private Button undoButton, redoButton, changeSelectedButton;
     @FXML
-    private MenuItem menuClose;
+    private MenuItem saveAsClicked, menuClose;
     @FXML
     private Canvas canvas;
     @FXML
@@ -52,7 +49,7 @@ public class PaintController {
         Position position = new Position(mouseEvent.getX(), mouseEvent.getY());
         Shape shape = model.createShape(position);
 
-        if (selectShapeCheckBox.isSelected()) {// STREAMS?
+        if (selectShapeCheckBox.isSelected()) {
 
             for (int i = 0; i < model.getShapes().size(); i++) {
                 if (model.getShapes().get(i).isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY()))) {
@@ -61,6 +58,7 @@ public class PaintController {
                 }
             }
         } else {
+            model.getShapes().forEach(shape1 -> shape1.setSelected(false));
             model.getShapes().add(shape);
             model.addUndoShape(shape);
         }

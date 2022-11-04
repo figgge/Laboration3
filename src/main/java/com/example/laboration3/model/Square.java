@@ -15,6 +15,8 @@ public class Square extends Shape {
     @Override
     public void drawShape(GraphicsContext context) {
         context.setFill(getColorObjectProperty());
+        context.setStroke(borderColor.getValue());
+        context.strokeRect(position.x() - halfSize(), position.y() - halfSize(), getSizeProperty(), getSizeProperty());
         context.fillRect(position.x() - halfSize(), position.y() - halfSize(),
                 getSizeProperty(), getSizeProperty());
     }
