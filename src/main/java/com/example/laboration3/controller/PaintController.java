@@ -13,10 +13,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class PaintController {
     private final PaintModel model = new PaintModel();
     private final DoubleProperty size = new SimpleDoubleProperty();
     public CheckBox selectShapeCheckBox;
+    public Button undoButton;
+    public Button redoButton;
     @FXML
     private MenuItem saveAsClicked;
     @FXML
@@ -31,6 +36,7 @@ public class PaintController {
     private ColorPicker colorPicker;
     @FXML
     private Spinner<Integer> sizeSpinner;
+    private static final Deque<Runnable> undoStack = new ArrayDeque<>();
 
     public void initialize() {
         context = canvas.getGraphicsContext2D();
@@ -38,7 +44,6 @@ public class PaintController {
         shapeChoiceBox.setItems(model.getShapeChoiceBox());
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeSpinnerProperty());
-        context.clearRect(0,0,800,600);
         model.getShapes().addListener((ListChangeListener<? super Shape>) change -> model.drawShapes(context));
 
 
@@ -50,18 +55,18 @@ public class PaintController {
         Position position = new Position(mouseEvent.getX(), mouseEvent.getY());
         Shape shape = model.createShape(position);
 
+
         if (selectShapeCheckBox.isSelected()) {
             for (int i = 0; i < model.getShapes().size(); i++) {
                 if (model.getShapes().get(i).isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY())))
                     System.out.println("Is selectable");
-
             }
-        } else
+        } else {
             model.getShapes().add(shape);
-
-
-
+            model.addUndoShape(shape);
+        }
     }
+
 
     public boolean isSelectMode(ActionEvent actionEvent) {
         return actionEvent.isConsumed();
@@ -69,5 +74,13 @@ public class PaintController {
 
     public void closeApplication() {
         Platform.exit();
+    }
+
+    public void onUndoClicked(ActionEvent actionEvent) {
+        System.out.println("undo clicked");
+        model.undo();
+    }
+
+    public void onRedoClicked(ActionEvent actionEvent) {
     }
 }
