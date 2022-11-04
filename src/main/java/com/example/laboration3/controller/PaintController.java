@@ -56,10 +56,11 @@ public class PaintController {
         Shape shape = model.createShape(position);
 
 
-        if (selectShapeCheckBox.isSelected()) {
+        if (selectShapeCheckBox.isSelected()) {// STREAMS?
             for (int i = 0; i < model.getShapes().size(); i++) {
-                if (model.getShapes().get(i).isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY())))
-                    System.out.println("Is selectable");
+                if (model.getShapes().get(i).isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY()))) {
+                    model.getShapes().get(i).setSelected(true);
+                }
             }
         } else {
             model.getShapes().add(shape);
@@ -76,11 +77,11 @@ public class PaintController {
         Platform.exit();
     }
 
-    public void onUndoClicked(ActionEvent actionEvent) {
-        System.out.println("undo clicked");
+    public void onUndoClicked() {
         model.undo();
     }
 
-    public void onRedoClicked(ActionEvent actionEvent) {
+    public void onRedoClicked() {
+        model.redo();
     }
 }

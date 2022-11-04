@@ -19,7 +19,7 @@ public class PaintModel {
     private final ObjectProperty<ShapeSelected> shapeSelected = new SimpleObjectProperty<>(ShapeSelected.CIRCLE);
     private final ObjectProperty<Integer> sizeSpinner = new SimpleObjectProperty<>(10);
     private static final Deque<Runnable> undoStack = new ArrayDeque<>();
-
+    private static final Deque<Runnable> redoStack = new ArrayDeque<>();
 
 
     public PaintModel() {
@@ -32,7 +32,6 @@ public class PaintModel {
     public ObservableList<ShapeSelected> getShapeChoiceBox() {
         return shapeChoiceBox;
     }
-
 
     public ObjectProperty<Color> colorProperty() {
         return color;
@@ -60,7 +59,7 @@ public class PaintModel {
 
 
     public void drawShapes(GraphicsContext context) {
-        context.clearRect(0,0,800,600);
+        context.clearRect(0, 0, 800, 600);
         for (Shape shape : shapes) {
             shape.drawShape(context);
         }
@@ -68,6 +67,7 @@ public class PaintModel {
 
     public void addUndoShape(Shape shape) {
         Runnable undo = () -> shapes.remove(shape);
+        addRedoShape(shape);
         undoStack.push(undo);
     }
 
@@ -76,6 +76,17 @@ public class PaintModel {
             Runnable undo = undoStack.pop();
             undo.run();
         }
-        System.out.println(shapes);
+    }
+
+    public void addRedoShape(Shape shape) {
+        Runnable redo = () -> shapes.add(shape);
+        redoStack.push(redo);
+    }
+
+    public void redo() {
+        if (redoStack.size() > 0) {
+            Runnable redo = redoStack.pop();
+            redo.run();
+        }
     }
 }
