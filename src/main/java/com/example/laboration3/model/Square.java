@@ -16,14 +16,14 @@ public class Square extends Shape {
     public void drawShape(GraphicsContext context) {
         context.setFill(getColorObjectProperty());
         context.fillRect(position.x() - halfSize(), position.y() - halfSize(),
-                size, size);
+                getSizeProperty(), getSizeProperty());
     }
 
 
     @Override
     public boolean isSelectable(Position position) {
-        boolean xSelectable = position.x() >= this.position.x() - halfSize() && position.x() <= this.position.x() - halfSize() + size;
-        boolean ySelectable = position.y() >= this.position.y() - halfSize() && position.y() <= this.position.y() - halfSize() + size;
+        boolean xSelectable = position.x() >= this.position.x() - halfSize() && position.x() <= this.position.x() - halfSize() + getSizeProperty();
+        boolean ySelectable = position.y() >= this.position.y() - halfSize() && position.y() <= this.position.y() - halfSize() + getSizeProperty();
         return xSelectable && ySelectable;
     }
 

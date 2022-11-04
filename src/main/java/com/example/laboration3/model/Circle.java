@@ -7,7 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class Circle extends Shape {
-    public Circle(ShapeSelected shape, Position pos, ObjectProperty<Color> col, double sizeValue) {
+    public Circle(ShapeSelected shape, Position pos, ObjectProperty<Color> col, Double sizeValue) {
         super(shape, pos, col, sizeValue);
     }
 
@@ -15,7 +15,7 @@ public class Circle extends Shape {
     public void drawShape(GraphicsContext context) {
         context.setFill(getColorObjectProperty());
         context.fillOval(position.x() - halfSize(), position.y() - halfSize(),
-                size, size);
+                getSizeProperty(), getSizeProperty());
     }
 
     @Override
