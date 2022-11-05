@@ -1,9 +1,8 @@
-package com.example.laboration3.model;
+package frkv.javafx.laborationthree.model;
 
 
-import com.example.laboration3.controller.PaintController;
-import com.example.laboration3.controller.Position;
-import com.example.laboration3.controller.ShapeSelected;
+import frkv.javafx.laborationthree.controller.Position;
+import frkv.javafx.laborationthree.controller.ShapeSelected;
 import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;

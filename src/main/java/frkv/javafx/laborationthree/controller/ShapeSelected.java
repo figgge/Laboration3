@@ -1,4 +1,4 @@
-package com.example.laboration3.controller;
+package frkv.javafx.laborationthree.controller;
 
 public enum ShapeSelected {
     CIRCLE, SQUARE

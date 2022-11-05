@@ -1,8 +1,7 @@
-package com.example.laboration3.model;
+package frkv.javafx.laborationthree.model;
 
-import com.example.laboration3.controller.Position;
-import com.example.laboration3.controller.ShapeSelected;
-import javafx.beans.property.DoubleProperty;
+import frkv.javafx.laborationthree.controller.Position;
+import frkv.javafx.laborationthree.controller.ShapeSelected;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
@@ -15,7 +14,6 @@ public abstract class Shape {
     public Position position;
     public ObjectProperty<Color> colorObjectProperty = new SimpleObjectProperty<>();
     public ObjectProperty<Color> borderColor = new SimpleObjectProperty<>();
-//    public Color borderColor;
     public ObjectProperty<Double> sizeProperty = new SimpleObjectProperty<>();
     public boolean isSelected;
 

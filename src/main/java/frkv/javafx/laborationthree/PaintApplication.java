@@ -1,4 +1,4 @@
-package com.example.laboration3;
+package frkv.javafx.laborationthree;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -1,7 +1,7 @@
-package com.example.laboration3.controller;
+package frkv.javafx.laborationthree.controller;
 
-import com.example.laboration3.model.PaintModel;
-import com.example.laboration3.model.Shape;
+import frkv.javafx.laborationthree.model.PaintModel;
+import frkv.javafx.laborationthree.model.Shape;
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -17,8 +17,8 @@ public class PaintController {
     private final PaintModel model = new PaintModel();
     private final DoubleProperty size = new SimpleDoubleProperty();
     public CheckBox selectShapeCheckBox;
-    @FXML
-    private Button undoButton, redoButton, changeSelectedButton;
+//    @FXML
+//    private Button undoButton, redoButton, changeSelectedButton;
     @FXML
     private MenuItem saveAsClicked, menuClose;
     @FXML

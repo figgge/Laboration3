@@ -1,7 +1,7 @@
-package com.example.laboration3.model;
+package frkv.javafx.laborationthree.model;
 
-import com.example.laboration3.controller.Position;
-import com.example.laboration3.controller.ShapeSelected;
+import frkv.javafx.laborationthree.controller.Position;
+import frkv.javafx.laborationthree.controller.ShapeSelected;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
