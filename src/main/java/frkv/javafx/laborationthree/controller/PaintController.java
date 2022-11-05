@@ -1,5 +1,6 @@
 package frkv.javafx.laborationthree.controller;
 
+import frkv.javafx.laborationthree.PaintApplication;
 import frkv.javafx.laborationthree.model.PaintModel;
 import frkv.javafx.laborationthree.model.Shape;
 import javafx.application.Platform;
@@ -12,8 +13,13 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
 
 public class PaintController {
+    public Stage stage;
     private final PaintModel model = new PaintModel();
     private final DoubleProperty size = new SimpleDoubleProperty();
     public CheckBox selectShapeCheckBox;
@@ -86,4 +92,19 @@ public class PaintController {
         model.changeSelectedShapes();
     }
 
+    public void onSaveAction(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save as");
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters().clear();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg"));
+
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null)
+            model.saveToFile(file.toPath());
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 }

@@ -36,7 +36,7 @@ public class Square extends Shape {
                 " y=\"" + position.y() + "\"" +
                 " width=\"" + sizeProperty.getValue() + "\"" +
                 " height=\"" + sizeProperty.getValue() + "\"" +
-                "fill=\"" + colorObjectProperty.getValue() + "\"/>";
+                " fill=\"#" + colorObjectProperty.getValue().toString().substring(2) + "\"/>";
     }
 
 

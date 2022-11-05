@@ -31,10 +31,10 @@ public class Circle extends Shape {
     @Override
     public String svg() {
         return "<circle" +
-                " cx=\"" + position.x() + "\"" +
-                " cy=\"" + position.y() + "\"" +
-                " r=\"" + sizeProperty.getValue() + "\"" +
-                "fill=\"" + colorObjectProperty.getValue() + "\"/>";
+                " cx=\"" + (position.x()+halfSize()) + "\"" +
+                " cy=\"" + (position.y()+halfSize()) + "\"" +
+                " r=\"" + halfSize() + "\"" +
+                " fill=\"#" + colorObjectProperty.getValue().toString().substring(2) + "\"/>";
     }
 
 }

@@ -3,6 +3,7 @@ package frkv.javafx.laborationthree.model;
 
 import frkv.javafx.laborationthree.controller.Position;
 import frkv.javafx.laborationthree.controller.ShapeSelected;
+import frkv.javafx.laborationthree.file.File;
 import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -10,6 +11,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+import java.nio.file.Path;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -102,5 +104,11 @@ public class PaintModel {
                 getShapes().get(i).setBorderColor(getShapes().get(i).colorObjectProperty.getValue());
             }
         }
+    }
+
+    public void saveToFile(Path file) {
+        System.out.println(file);
+        File.saveFile(file, getShapes());
+
     }
 }
