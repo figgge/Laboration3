@@ -48,6 +48,7 @@ public class PaintController {
     public void onCanvasClicked(MouseEvent mouseEvent) {
         Position position = new Position(mouseEvent.getX(), mouseEvent.getY());
         Shape shape = model.createShape(position);
+        System.out.println(shape.svg());
 
         if (selectShapeCheckBox.isSelected()) {
 

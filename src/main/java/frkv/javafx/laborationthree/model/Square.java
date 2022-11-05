@@ -29,5 +29,15 @@ public class Square extends Shape {
         return xSelectable && ySelectable;
     }
 
+    @Override
+    public String svg() {
+        return "<rect" +
+                " x=\"" + position.x() + "\"" +
+                " y=\"" + position.y() + "\"" +
+                " width=\"" + sizeProperty.getValue() + "\"" +
+                " height=\"" + sizeProperty.getValue() + "\"" +
+                "fill=\"" + colorObjectProperty.getValue() + "\"/>";
+    }
+
 
 }

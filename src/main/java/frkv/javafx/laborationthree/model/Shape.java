@@ -53,6 +53,7 @@ public abstract class Shape {
 
     public abstract void drawShape(GraphicsContext context);
     public abstract boolean isSelectable(Position position);
+    public abstract String svg();
 
     double halfSize() {
         return sizeProperty.getValue() / 2;

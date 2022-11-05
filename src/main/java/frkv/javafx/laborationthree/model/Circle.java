@@ -28,5 +28,14 @@ public class Circle extends Shape {
         return circleRange <= halfSize();
     }
 
+    @Override
+    public String svg() {
+        return "<circle" +
+                " cx=\"" + position.x() + "\"" +
+                " cy=\"" + position.y() + "\"" +
+                " r=\"" + sizeProperty.getValue() + "\"" +
+                "fill=\"" + colorObjectProperty.getValue() + "\"/>";
+    }
+
 }
 
