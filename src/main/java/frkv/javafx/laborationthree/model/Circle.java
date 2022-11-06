@@ -37,5 +37,7 @@ public class Circle extends Shape {
                 " fill=\"#" + colorObjectProperty.getValue().toString().substring(2) + "\"/>";
     }
 
+
+
 }
 

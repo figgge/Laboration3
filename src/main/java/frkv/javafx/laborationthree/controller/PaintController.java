@@ -1,6 +1,6 @@
 package frkv.javafx.laborationthree.controller;
 
-import frkv.javafx.laborationthree.PaintApplication;
+
 import frkv.javafx.laborationthree.model.PaintModel;
 import frkv.javafx.laborationthree.model.Shape;
 import javafx.application.Platform;
@@ -54,16 +54,10 @@ public class PaintController {
     public void onCanvasClicked(MouseEvent mouseEvent) {
         Position position = new Position(mouseEvent.getX(), mouseEvent.getY());
         Shape shape = model.createShape(position);
-        System.out.println(shape.svg());
 
         if (selectShapeCheckBox.isSelected()) {
-
-            for (int i = 0; i < model.getShapes().size(); i++) {
-                if (model.getShapes().get(i).isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY()))) {
-                    model.getShapes().get(i).setSelected(true);
-
-                }
-            }
+            model.getShapes().stream().filter(shape1 -> shape1.isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY())))
+                    .forEach(shape1 -> shape1.setSelected(true));
         } else {
             model.getShapes().forEach(shape1 -> shape1.setSelected(false));
             model.getShapes().add(shape);

@@ -3,10 +3,6 @@ package frkv.javafx.laborationthree.file;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
-
 import frkv.javafx.laborationthree.model.Shape;
 import javafx.collections.ObservableList;
 
