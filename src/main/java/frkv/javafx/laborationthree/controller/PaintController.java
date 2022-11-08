@@ -1,6 +1,7 @@
 package frkv.javafx.laborationthree.controller;
 
 
+import frkv.javafx.laborationthree.model.Circle;
 import frkv.javafx.laborationthree.model.PaintModel;
 import frkv.javafx.laborationthree.model.Shape;
 import javafx.application.Platform;
@@ -23,7 +24,7 @@ public class PaintController {
     private final PaintModel model = new PaintModel();
     private final DoubleProperty size = new SimpleDoubleProperty();
     public CheckBox selectShapeCheckBox;
-//    @FXML
+    //    @FXML
 //    private Button undoButton, redoButton, changeSelectedButton;
     @FXML
     private MenuItem saveAsClicked, menuClose;
@@ -38,6 +39,8 @@ public class PaintController {
     @FXML
     private Spinner<Integer> sizeSpinner;
 
+    private Shape selectedShape;
+
     public void initialize() {
         context = canvas.getGraphicsContext2D();
         shapeChoiceBox.valueProperty().bindBidirectional(model.shapeSelectedProperty());
@@ -45,7 +48,6 @@ public class PaintController {
         colorPicker.valueProperty().bindBidirectional(model.colorProperty());
         sizeSpinner.getValueFactory().valueProperty().bindBidirectional(model.sizeSpinnerProperty());
         model.getShapes().addListener((ListChangeListener<? super Shape>) change -> model.drawShapes(context));
-
 
 
     }
@@ -56,17 +58,24 @@ public class PaintController {
         Shape shape = model.createShape(position);
 
         if (selectShapeCheckBox.isSelected()) {
-            model.getShapes().stream().filter(shape1 -> shape1.isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY())))
-                    .forEach(shape1 -> shape1.setSelected(true));
+            selectShape(mouseEvent);
+
         } else {
-            model.getShapes().forEach(shape1 -> shape1.setSelected(false));
             model.getShapes().add(shape);
             model.addUndoShape(shape);
         }
     }
 
+    private void selectShape(MouseEvent mouseEvent) {
+        model.getShapes().forEach(shape1 -> shape1.setSelected(false));
+        model.getShapes().stream().filter(shape1 -> shape1.isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY())))
+                .limit(1)
+                .forEach(shape1 -> shape1.setSelected(true));
+    }
+
 
     public boolean isSelectMode(ActionEvent actionEvent) {
+        model.getShapes().forEach(shape1 -> shape1.setSelected(false));
         return actionEvent.isConsumed();
     }
 
@@ -86,16 +95,21 @@ public class PaintController {
         model.changeSelectedShapes();
     }
 
-    public void onSaveAction(ActionEvent actionEvent) {
+    public void onSaveAction() {
+        FileChooser fileChooser = getFileChooser();
+
+        File file = fileChooser.showSaveDialog(stage);
+        if (file != null)
+            model.saveToFile(file.toPath());
+    }
+
+    private static FileChooser getFileChooser() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save as");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileChooser.getExtensionFilters().clear();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg"));
-
-        File file = fileChooser.showSaveDialog(stage);
-        if (file != null)
-            model.saveToFile(file.toPath());
+        return fileChooser;
     }
 
     public void setStage(Stage stage) {

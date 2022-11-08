@@ -22,8 +22,8 @@ public class PaintModel {
     private final ObjectProperty<Color> color = new SimpleObjectProperty<>(Color.BLACK);
     private final ObservableList<ShapeSelected> shapeChoiceBox = FXCollections.observableArrayList(ShapeSelected.values());
     private final ObjectProperty<ShapeSelected> shapeSelected = new SimpleObjectProperty<>(ShapeSelected.CIRCLE);
-    private final ObjectProperty<Integer> sizeSpinner = new SimpleObjectProperty<>(10);
-    private static final Deque<Runnable> undoStack = new ArrayDeque<>();
+    private final ObjectProperty<Integer> sizeSpinner = new SimpleObjectProperty<>(25);
+    protected static final Deque<Runnable> undoStack = new ArrayDeque<>();
     private static final Deque<Runnable> redoStack = new ArrayDeque<>();
 
 
@@ -80,6 +80,7 @@ public class PaintModel {
         if (undoStack.size() > 0) {
             Runnable undo = undoStack.pop();
             undo.run();
+
         }
     }
 
@@ -96,19 +97,32 @@ public class PaintModel {
     }
 
     public void changeSelectedShapes() {
-        for (int i = 0; i < getShapes().size(); i++) {
-            if (getShapes().get(i).isSelected) {
-                getShapes().get(i).setColorObjectProperty(colorProperty().getValue());
-                getShapes().get(i).setSizeProperty(getSizeSpinner().doubleValue());
-                getShapes().get(i).setSelected(false);
-                getShapes().get(i).setBorderColor(getShapes().get(i).colorObjectProperty.getValue());
-            }
-        }
+        getShapes().stream().filter(shape -> shape.isSelected)
+                .forEach(this::setChanges);
     }
 
     public void saveToFile(Path file) {
         System.out.println(file);
         File.saveFile(file, getShapes());
+    }
 
+    public void setChanges(Shape shape) {
+        Color color = getChangedColor();
+        setNewColor(shape, color);
+        shape.setSizeProperty(getSize());
+        shape.setSelected(false);
+    }
+
+    private static void setNewColor(Shape shape, Color color) {
+        shape.setColorObjectProperty(color);
+        shape.setBorderColor(color);
+    }
+
+    private double getSize() {
+        return getSizeSpinner().doubleValue();
+    }
+
+    private Color getChangedColor() {
+        return colorProperty().getValue();
     }
 }

@@ -15,10 +15,15 @@ public class Square extends Shape {
     @Override
     public void drawShape(GraphicsContext context) {
         context.setFill(getColorObjectProperty());
-        context.setStroke(borderColor.getValue());
-        context.strokeRect(position.x() - halfSize(), position.y() - halfSize(), getSizeProperty(), getSizeProperty());
         context.fillRect(position.x() - halfSize(), position.y() - halfSize(),
                 getSizeProperty(), getSizeProperty());
+        drawBorderColor(context);
+    }
+
+    @Override
+    public void drawBorderColor(GraphicsContext context) {
+        context.setStroke(borderColor.getValue());
+        context.strokeRect(position.x() - halfSize(), position.y() - halfSize(), getSizeProperty(), getSizeProperty());
     }
 
 
@@ -32,8 +37,8 @@ public class Square extends Shape {
     @Override
     public String svg() {
         return "<rect" +
-                " x=\"" + position.x() + "\"" +
-                " y=\"" + position.y() + "\"" +
+                " x=\"" + (position.x()-halfSize()) + "\"" +
+                " y=\"" + (position.y()-halfSize()) + "\"" +
                 " width=\"" + sizeProperty.getValue() + "\"" +
                 " height=\"" + sizeProperty.getValue() + "\"" +
                 " fill=\"#" + colorObjectProperty.getValue().toString().substring(2) + "\"/>";

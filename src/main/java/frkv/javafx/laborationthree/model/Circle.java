@@ -14,10 +14,14 @@ public class Circle extends Shape {
     @Override
     public void drawShape(GraphicsContext context) {
         context.setFill(getColorObjectProperty());
-        context.setStroke(borderColor.getValue());
-        context.strokeOval(position.x() - halfSize(), position.y() - halfSize(), getSizeProperty(), getSizeProperty());
         context.fillOval(position.x() - halfSize(), position.y() - halfSize(),
                 getSizeProperty(), getSizeProperty());
+        drawBorderColor(context);
+    }
+    @Override
+    public void drawBorderColor(GraphicsContext context) {
+        context.setStroke(borderColor.getValue());
+        context.strokeOval(position.x() - halfSize(), position.y() - halfSize(), getSizeProperty(), getSizeProperty());
     }
 
     @Override
@@ -31,12 +35,11 @@ public class Circle extends Shape {
     @Override
     public String svg() {
         return "<circle" +
-                " cx=\"" + (position.x()+halfSize()) + "\"" +
-                " cy=\"" + (position.y()+halfSize()) + "\"" +
+                " cx=\"" + position.x() + "\"" +
+                " cy=\"" + position.y() + "\"" +
                 " r=\"" + halfSize() + "\"" +
                 " fill=\"#" + colorObjectProperty.getValue().toString().substring(2) + "\"/>";
     }
-
 
 
 }

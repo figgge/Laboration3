@@ -52,6 +52,7 @@ public abstract class Shape {
     }
 
     public abstract void drawShape(GraphicsContext context);
+    public abstract void drawBorderColor(GraphicsContext context);
     public abstract boolean isSelectable(Position position);
     public abstract String svg();
 
@@ -87,12 +88,18 @@ public abstract class Shape {
 
     public void setBorderColor() {
         if (borderColor.getValue().equals(Color.BLACK))
-            this.borderColor.set(Color.PINK);
-        this.borderColor.set(Color.BLACK);
+            this.borderColor.set(Color.FUCHSIA);
+        else
+            this.borderColor.set(Color.BLACK);
     }
     public void setBorderColor(Color color) {
         this.borderColor.set(color);
     }
+
+
+
+
+
 
 
 }
