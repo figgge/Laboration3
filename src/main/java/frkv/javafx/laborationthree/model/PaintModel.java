@@ -5,7 +5,8 @@ import frkv.javafx.laborationthree.controller.Position;
 import frkv.javafx.laborationthree.controller.ShapeSelected;
 import frkv.javafx.laborationthree.file.File;
 import javafx.beans.Observable;
-import javafx.beans.property.*;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,9 +14,7 @@ import javafx.scene.paint.Color;
 
 import java.nio.file.Path;
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 
 public class PaintModel {
     private final ObservableList<Shape> shapes = FXCollections.observableArrayList(param -> new Observable[]{
@@ -66,8 +65,10 @@ public class PaintModel {
 
     public Shape createShape(Shape shape) {
         return switch (shapeSelected.getValue()) {
-            case CIRCLE -> new Circle(shape.shapeSelected, shape.position, shape.colorObjectProperty, shape.sizeProperty.getValue());
-            case SQUARE -> new Square(shape.shapeSelected, shape.position, shape.colorObjectProperty, shape.sizeProperty.getValue());
+            case CIRCLE ->
+                    new Circle(shape.shapeSelected, shape.position, shape.colorObjectProperty, shape.sizeProperty.getValue());
+            case SQUARE ->
+                    new Square(shape.shapeSelected, shape.position, shape.colorObjectProperty, shape.sizeProperty.getValue());
         };
     }
 
@@ -157,7 +158,6 @@ public class PaintModel {
     private Color getChangedColor() {
         return colorProperty().getValue();
     }
-
 
 
 }

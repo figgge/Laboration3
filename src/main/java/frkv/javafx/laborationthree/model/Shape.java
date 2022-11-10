@@ -10,7 +10,6 @@ import javafx.scene.paint.Color;
 import java.util.Objects;
 
 
-
 public abstract class Shape {
     public ShapeSelected shapeSelected;
     public Position position;
@@ -54,8 +53,11 @@ public abstract class Shape {
     }
 
     public abstract void drawShape(GraphicsContext context);
+
     public abstract void drawBorderColor(GraphicsContext context);
+
     public abstract boolean isSelectable(Position position);
+
     public abstract String svg();
 
     double halfSize() {
@@ -94,6 +96,7 @@ public abstract class Shape {
         else
             this.borderColor.set(Color.BLACK);
     }
+
     public void setBorderColor(Color color) {
         this.borderColor.set(color);
     }

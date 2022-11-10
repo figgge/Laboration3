@@ -5,10 +5,9 @@ import frkv.javafx.laborationthree.controller.Position;
 import frkv.javafx.laborationthree.controller.ShapeSelected;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PaintModelTest {
-
 
 
     @Test
@@ -16,28 +15,28 @@ class PaintModelTest {
         PaintModel model = new PaintModel();
 
         model.shapeSelectedProperty().setValue(ShapeSelected.CIRCLE);
-        model.createShape(new Position(100,100));
+        model.createShape(new Position(100, 100));
 
-        assertEquals(ShapeSelected.CIRCLE,model.shapeSelectedProperty().getValue(),"Selected shape should be Circle");
+        assertEquals(ShapeSelected.CIRCLE, model.shapeSelectedProperty().getValue(), "Selected shape should be Circle");
     }
 
     @Test
     void addShapeToUndoStack() {
         PaintModel model = new PaintModel();
-        Circle circle = new Circle(ShapeSelected.CIRCLE, new Position(0.0,0.0), model.colorProperty(), 25.0);
+        Circle circle = new Circle(ShapeSelected.CIRCLE, new Position(0.0, 0.0), model.colorProperty(), 25.0);
 
         model.addUndoRedoRunnable(circle, false);
 
         var expected = 1;
         var actual = model.undoStack.size();
 
-        assertEquals(expected,actual, "undoStack size should be 1");
+        assertEquals(expected, actual, "undoStack size should be 1");
     }
 
     @Test
     void removeShapeFromUndoStack() {
         PaintModel model = new PaintModel();
-        Circle circle = new Circle(ShapeSelected.CIRCLE, new Position(0.0,0.0), model.colorProperty(), 25.0);
+        Circle circle = new Circle(ShapeSelected.CIRCLE, new Position(0.0, 0.0), model.colorProperty(), 25.0);
 
         model.addUndoRedoRunnable(circle, false);
         model.undo();
@@ -45,12 +44,8 @@ class PaintModelTest {
         var expected = 0;
         var actual = model.undoStack.size();
 
-        assertEquals(expected,actual, "undoStack should be empty");
+        assertEquals(expected, actual, "undoStack should be empty");
     }
-
-
-
-
 
 
 }

@@ -4,35 +4,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frkv.javafx.laborationthree.controller.PaintController">
-   <top>
-      <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem fx:id="saveAsClicked" mnemonicParsing="false" onAction="#onSaveAction" text="Save as.." />
-                        <MenuItem fx:id="menuClose" mnemonicParsing="false" onAction="#closeApplication" text="Close application" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-            <ChoiceBox fx:id="shapeChoiceBox" prefWidth="110.0" />
-            <ColorPicker fx:id="colorPicker" />
-            <Spinner fx:id="sizeSpinner" editable="true" initialValue="10" max="400" maxWidth="60" min="10" />
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <Button fx:id="changeSelectedButton" maxHeight="5" minWidth="95" mnemonicParsing="false" onAction="#changeSelected" text="Edit selected" />
-                  <CheckBox fx:id="selectShapeCheckBox" mnemonicParsing="false" onAction="#isSelectMode" text="Select shape" />
-               </children>
-            </VBox>
-            <Button fx:id="undoButton" mnemonicParsing="false" onAction="#onUndoClicked" text="Undo" />
-            <Button fx:id="redoButton" mnemonicParsing="false" onAction="#onRedoClicked" text="Redo" />
-         </children>
-      </HBox>
-   </top>
-   <center>
-      <Canvas fx:id="canvas" height="600.0" onMouseClicked="#onCanvasClicked" width="800.0" BorderPane.alignment="CENTER" />
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="frkv.javafx.laborationthree.controller.PaintController">
+    <top>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <MenuBar>
+                    <menus>
+                        <Menu mnemonicParsing="false" text="File">
+                            <items>
+                                <MenuItem fx:id="saveAsClicked" mnemonicParsing="false" onAction="#onSaveAction"
+                                          text="Save as.."/>
+                                <MenuItem fx:id="menuClose" mnemonicParsing="false" onAction="#closeApplication"
+                                          text="Close application"/>
+                            </items>
+                        </Menu>
+                    </menus>
+                </MenuBar>
+                <ChoiceBox fx:id="shapeChoiceBox" prefWidth="110.0"/>
+                <ColorPicker fx:id="colorPicker"/>
+                <Spinner fx:id="sizeSpinner" editable="true" initialValue="10" max="400" maxWidth="60" min="10"/>
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Button fx:id="changeSelectedButton" maxHeight="5" minWidth="95" mnemonicParsing="false"
+                                onAction="#changeSelected" text="Edit selected"/>
+                        <CheckBox fx:id="selectShapeCheckBox" mnemonicParsing="false" onAction="#isSelectMode"
+                                  text="Select shape"/>
+                    </children>
+                </VBox>
+                <Button fx:id="undoButton" mnemonicParsing="false" onAction="#onUndoClicked" text="Undo"/>
+                <Button fx:id="redoButton" mnemonicParsing="false" onAction="#onRedoClicked" text="Redo"/>
+            </children>
+        </HBox>
+    </top>
+    <center>
+        <Canvas fx:id="canvas" height="600.0" onMouseClicked="#onCanvasClicked" width="800.0"
+                BorderPane.alignment="CENTER"/>
+    </center>
 </BorderPane>

@@ -18,6 +18,7 @@ public class Circle extends Shape {
                 getSizeProperty(), getSizeProperty());
         drawBorderColor(context);
     }
+
     @Override
     public void drawBorderColor(GraphicsContext context) {
         context.setStroke(borderColor.getValue());

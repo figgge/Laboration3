@@ -1,11 +1,11 @@
 package frkv.javafx.laborationthree.file;
 
+import frkv.javafx.laborationthree.model.Shape;
+import javafx.collections.ObservableList;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import frkv.javafx.laborationthree.model.Shape;
-import javafx.collections.ObservableList;
 
 public class File {
 
@@ -26,7 +26,7 @@ public class File {
         stringBuilder.append("</svg>\n");
 
         try {
-            Files.writeString(path,stringBuilder.toString());
+            Files.writeString(path, stringBuilder.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

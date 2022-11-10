@@ -37,8 +37,8 @@ public class Square extends Shape {
     @Override
     public String svg() {
         return "<rect" +
-                " x=\"" + (position.x()-halfSize()) + "\"" +
-                " y=\"" + (position.y()-halfSize()) + "\"" +
+                " x=\"" + (position.x() - halfSize()) + "\"" +
+                " y=\"" + (position.y() - halfSize()) + "\"" +
                 " width=\"" + sizeProperty.getValue() + "\"" +
                 " height=\"" + sizeProperty.getValue() + "\"" +
                 " fill=\"#" + colorObjectProperty.getValue().toString().substring(2) + "\"/>";
