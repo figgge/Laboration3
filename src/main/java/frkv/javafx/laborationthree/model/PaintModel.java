@@ -26,6 +26,7 @@ public class PaintModel {
     private final ObjectProperty<Integer> sizeSpinner = new SimpleObjectProperty<>(25);
     protected final Deque<Runnable> undoStack = new ArrayDeque<>();
     private final Deque<Runnable> redoStack = new ArrayDeque<>();
+    private final Circle notNull = new Circle(ShapeSelected.CIRCLE, new Position(0, 0), colorProperty(), 0.0);
 
 
     public PaintModel() {
@@ -63,51 +64,48 @@ public class PaintModel {
         };
     }
 
-    public Shape createShape(Shape shape) {
-        return switch (shapeSelected.getValue()) {
-            case CIRCLE ->
-                    new Circle(shape.shapeSelected, shape.position, shape.colorObjectProperty, shape.sizeProperty.getValue());
-            case SQUARE ->
-                    new Square(shape.shapeSelected, shape.position, shape.colorObjectProperty, shape.sizeProperty.getValue());
-        };
-    }
-
 
     public void drawShapes(GraphicsContext context) {
         context.clearRect(0, 0, 800, 600);
         for (Shape shape : shapes) {
             shape.drawShape(context);
         }
-        System.out.println(redoStack.toArray().length);
-        System.out.println("undo: " + undoStack.toArray().length);
-        System.out.println("redo: " + redoStack.toArray().length);
     }
 
 
-    public void addUndoRedoRunnable(Shape shape, boolean isSelectMode) {
-        if (isSelectMode) {
-            Shape oldShape = createShape(shape);
-            Runnable undo = () -> {
-                shapes.remove(shape);
-                shapes.add(oldShape);
-                Runnable redo = () -> {
-                    shapes.remove(oldShape);
-                    shapes.add(shape);
-                };
-                redoStack.push(redo);
-            };
-            undoStack.push(undo);
-        } else {
-            Runnable undo = () -> {
-                shapes.remove(shape);
-                Runnable redo = () -> {
-                    shapes.add(shape);
-                };
-                redoStack.push(redo);
-            };
-            undoStack.push(undo);
+    public void addUndoRedoRunnable(Shape shape, boolean isSelected) {
+        Color oldColor = shape.colorObjectProperty.getValue();
+        Color newColor = colorProperty().getValue();
+        double oldSize = shape.sizeProperty.getValue();
+        double newSize = sizeSpinnerProperty().getValue().doubleValue();
 
+        if (isSelected) {
+            getUndoRedoColorSize(shape, oldColor, newColor, oldSize, newSize);
+        } else {
+            getUndoRedoShape(shape);
         }
+    }
+
+    private void getUndoRedoShape(Shape shape) {
+        Runnable undo = () -> {
+            shapes.remove(shape);
+            Runnable redo = () -> shapes.add(shape);
+            redoStack.push(redo);
+        };
+        undoStack.push(undo);
+    }
+
+    private void getUndoRedoColorSize(Shape shape, Color oldColor, Color newColor, double oldSize, double newSize) {
+        Runnable undo = () -> {
+            shape.setColorObjectProperty(oldColor);
+            shape.setSizeProperty(oldSize);
+            Runnable redo = () -> {
+                shape.setColorObjectProperty(newColor);
+                shape.setSizeProperty(newSize);
+            };
+            redoStack.push(redo);
+        };
+        undoStack.push(undo);
     }
 
     public void undo() {
@@ -119,7 +117,7 @@ public class PaintModel {
 
 
     public Shape getSelectedShape() {
-        return getShapes().stream().filter(shape -> shape.isSelected).findFirst().orElse(null);
+        return getShapes().stream().filter(shape -> shape.isSelected).findFirst().orElse(notNull);
     }
 
     public void redo() {
