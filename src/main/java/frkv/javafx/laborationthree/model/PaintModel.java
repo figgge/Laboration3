@@ -26,6 +26,7 @@ public class PaintModel {
     private final ObjectProperty<Integer> sizeSpinner = new SimpleObjectProperty<>(25);
     protected final Deque<Runnable> undoStack = new ArrayDeque<>();
     private final Deque<Runnable> redoStack = new ArrayDeque<>();
+    private final Circle notNull = new Circle(ShapeSelected.CIRCLE, new Position(0,0), colorProperty(), 0.0);
 
 
     public PaintModel() {
@@ -78,9 +79,6 @@ public class PaintModel {
         for (Shape shape : shapes) {
             shape.drawShape(context);
         }
-        System.out.println(redoStack.toArray().length);
-        System.out.println("undo: " + undoStack.toArray().length);
-        System.out.println("redo: " + redoStack.toArray().length);
     }
 
 
@@ -100,9 +98,7 @@ public class PaintModel {
         } else {
             Runnable undo = () -> {
                 shapes.remove(shape);
-                Runnable redo = () -> {
-                    shapes.add(shape);
-                };
+                Runnable redo = () -> shapes.add(shape);
                 redoStack.push(redo);
             };
             undoStack.push(undo);
@@ -119,7 +115,7 @@ public class PaintModel {
 
 
     public Shape getSelectedShape() {
-        return getShapes().stream().filter(shape -> shape.isSelected).findFirst().orElse(null);
+        return getShapes().stream().filter(shape -> shape.isSelected).findFirst().orElse(notNull);
     }
 
     public void redo() {
