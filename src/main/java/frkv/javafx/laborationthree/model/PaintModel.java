@@ -13,7 +13,9 @@ import javafx.scene.paint.Color;
 
 import java.nio.file.Path;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.List;
 
 public class PaintModel {
     private final ObservableList<Shape> shapes = FXCollections.observableArrayList(param -> new Observable[]{
@@ -23,8 +25,8 @@ public class PaintModel {
     private final ObservableList<ShapeSelected> shapeChoiceBox = FXCollections.observableArrayList(ShapeSelected.values());
     private final ObjectProperty<ShapeSelected> shapeSelected = new SimpleObjectProperty<>(ShapeSelected.CIRCLE);
     private final ObjectProperty<Integer> sizeSpinner = new SimpleObjectProperty<>(25);
-    protected static final Deque<Runnable> undoStack = new ArrayDeque<>();
-    private static final Deque<Runnable> redoStack = new ArrayDeque<>();
+    protected final Deque<Runnable> undoStack = new ArrayDeque<>();
+    private final Deque<Runnable> redoStack = new ArrayDeque<>();
 
 
     public PaintModel() {
@@ -62,31 +64,61 @@ public class PaintModel {
         };
     }
 
+    public Shape createShape(Shape shape) {
+        return switch (shapeSelected.getValue()) {
+            case CIRCLE -> new Circle(shape.shapeSelected, shape.position, shape.colorObjectProperty, shape.sizeProperty.getValue());
+            case SQUARE -> new Square(shape.shapeSelected, shape.position, shape.colorObjectProperty, shape.sizeProperty.getValue());
+        };
+    }
+
 
     public void drawShapes(GraphicsContext context) {
         context.clearRect(0, 0, 800, 600);
         for (Shape shape : shapes) {
             shape.drawShape(context);
         }
+        System.out.println(redoStack.toArray().length);
+        System.out.println("undo: " + undoStack.toArray().length);
+        System.out.println("redo: " + redoStack.toArray().length);
     }
 
-    public void addUndoShape(Shape shape) {
-        Runnable undo = () -> shapes.remove(shape);
-        addRedoShape(shape);
-        undoStack.push(undo);
+
+    public void addUndoRedoRunnable(Shape shape, boolean isSelectMode) {
+        if (isSelectMode) {
+            Shape oldShape = createShape(shape);
+            Runnable undo = () -> {
+                shapes.remove(shape);
+                shapes.add(oldShape);
+                Runnable redo = () -> {
+                    shapes.remove(oldShape);
+                    shapes.add(shape);
+                };
+                redoStack.push(redo);
+            };
+            undoStack.push(undo);
+        } else {
+            Runnable undo = () -> {
+                shapes.remove(shape);
+                Runnable redo = () -> {
+                    shapes.add(shape);
+                };
+                redoStack.push(redo);
+            };
+            undoStack.push(undo);
+
+        }
     }
 
     public void undo() {
         if (undoStack.size() > 0) {
             Runnable undo = undoStack.pop();
             undo.run();
-
         }
     }
 
-    public void addRedoShape(Shape shape) {
-        Runnable redo = () -> shapes.add(shape);
-        redoStack.push(redo);
+
+    public Shape getSelectedShape() {
+        return getShapes().stream().filter(shape -> shape.isSelected).findFirst().orElse(null);
     }
 
     public void redo() {
@@ -103,7 +135,7 @@ public class PaintModel {
 
     public void saveToFile(Path file) {
         System.out.println(file);
-        File.saveFile(file, getShapes());
+        File.saveSVGFile(file, getShapes());
     }
 
     public void setChanges(Shape shape) {
@@ -125,4 +157,7 @@ public class PaintModel {
     private Color getChangedColor() {
         return colorProperty().getValue();
     }
+
+
+
 }

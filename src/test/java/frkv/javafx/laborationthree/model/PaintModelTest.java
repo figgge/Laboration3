@@ -3,12 +3,7 @@ package frkv.javafx.laborationthree.model;
 
 import frkv.javafx.laborationthree.controller.Position;
 import frkv.javafx.laborationthree.controller.ShapeSelected;
-import javafx.scene.paint.Color;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayDeque;
-import java.util.Deque;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,13 +26,12 @@ class PaintModelTest {
         PaintModel model = new PaintModel();
         Circle circle = new Circle(ShapeSelected.CIRCLE, new Position(0.0,0.0), model.colorProperty(), 25.0);
 
-        model.addUndoShape(circle);
+        model.addUndoRedoRunnable(circle, false);
 
         var expected = 1;
-        var actual = PaintModel.undoStack.size();
+        var actual = model.undoStack.size();
 
         assertEquals(expected,actual, "undoStack size should be 1");
-        PaintModel.undoStack.pop().run();
     }
 
     @Test
@@ -45,11 +39,11 @@ class PaintModelTest {
         PaintModel model = new PaintModel();
         Circle circle = new Circle(ShapeSelected.CIRCLE, new Position(0.0,0.0), model.colorProperty(), 25.0);
 
-        model.addUndoShape(circle);
+        model.addUndoRedoRunnable(circle, false);
         model.undo();
 
         var expected = 0;
-        var actual = PaintModel.undoStack.size();
+        var actual = model.undoStack.size();
 
         assertEquals(expected,actual, "undoStack should be empty");
     }

@@ -9,6 +9,8 @@ import javafx.scene.paint.Color;
 
 import java.util.Objects;
 
+
+
 public abstract class Shape {
     public ShapeSelected shapeSelected;
     public Position position;
@@ -95,11 +97,5 @@ public abstract class Shape {
     public void setBorderColor(Color color) {
         this.borderColor.set(color);
     }
-
-
-
-
-
-
 
 }
