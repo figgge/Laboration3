@@ -2,6 +2,7 @@ package frkv.javafx.laborationthree.file;
 
 import frkv.javafx.laborationthree.model.Shape;
 import javafx.collections.ObservableList;
+import javafx.stage.FileChooser;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,4 +35,12 @@ public class File {
 
     }
 
+    public static FileChooser getFileChooser() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save as");
+        fileChooser.setInitialDirectory(new java.io.File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters().clear();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg"));
+        return fileChooser;
+    }
 }

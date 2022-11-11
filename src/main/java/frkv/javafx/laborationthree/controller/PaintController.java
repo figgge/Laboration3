@@ -89,20 +89,11 @@ public class PaintController {
     }
 
     public void onSaveAction() {
-        FileChooser fileChooser = getFileChooser();
+        FileChooser fileChooser = frkv.javafx.laborationthree.file.File.getFileChooser();
 
         File file = fileChooser.showSaveDialog(stage);
         if (file != null)
             model.saveToFile(file.toPath());
-    }
-
-    private static FileChooser getFileChooser() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save as");
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        fileChooser.getExtensionFilters().clear();
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("SVG", "*.svg"));
-        return fileChooser;
     }
 
     public void setStage(Stage stage) {
