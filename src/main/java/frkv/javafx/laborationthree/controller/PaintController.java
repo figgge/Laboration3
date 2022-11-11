@@ -61,7 +61,6 @@ public class PaintController {
     private void selectShape(MouseEvent mouseEvent) {
         model.getShapes().forEach(shape1 -> shape1.setSelected(false));
         model.getShapes().stream().filter(shape1 -> shape1.isSelectable(new Position(mouseEvent.getX(), mouseEvent.getY())))
-                .limit(1)
                 .forEach(shape1 -> shape1.setSelected(true));
     }
 
